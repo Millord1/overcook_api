@@ -83,6 +83,22 @@ class Dish
         return $this;
     }
 
+    /**
+     * @param Ingredient[] $ingredients
+     *
+     * @return $this
+     */
+    public function addIngredients(array $ingredients): static
+    {
+        foreach ($ingredients as $ing){
+             if (get_class($ing) === Ingredient::class && !$this->ingredients->contains($ing)) {
+                $this->ingredients->add($ing);
+            }
+        }
+
+        return $this;
+    }
+
     public function removeIngredient(Ingredient $ingredient): static
     {
         $this->ingredients->removeElement($ingredient);
@@ -115,6 +131,22 @@ class Dish
         if (!$this->steps->contains($step)) {
             $this->steps->add($step);
             $step->setDish($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Step[] $steps
+     *
+     * @return $this
+     */
+    public function addSteps(array $steps): static
+    {
+        foreach ($steps as $step){
+            if (get_class($step) === Step::class && !$this->steps->contains($step)) {
+                $this->steps->add($step);
+            }
         }
 
         return $this;

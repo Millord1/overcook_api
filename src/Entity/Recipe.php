@@ -86,6 +86,23 @@ class Recipe
         return $this;
     }
 
+    /**
+     * @param Tags[] $tags
+     *
+     * @return $this
+     */
+    public function addTags(array $tags): static
+    {
+        foreach ($tags as $tag){
+            if (get_class($tag) === Tags::class && !$this->tags->contains($tag)) {
+                $this->tags->add($tag);
+            }
+        }
+
+        return $this;
+    }
+
+
     public function removeTag(Tags $tag): static
     {
         if ($this->tags->removeElement($tag)) {
